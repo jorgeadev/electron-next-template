@@ -2,11 +2,40 @@
   "name": "todo-electron",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev:next": "next dev --turbopack -p 3000",
+    "dev:electron": "electron .",
+"dev": "concurrently -n next,electron -c green,blue \"npm:dev:next\" \"wait-on http-get://localhost:3000 && electron .\"",
+    "build:next": "next build --turbopack && next export",
+    "build:electron": "electron-builder --win --dir",
+    "build": "npm run build:next && npm run build:electron",
+    "dist": "electron-builder --win --x64",
     "start": "next start",
     "lint": "eslint"
+  },
+  "build": {
+    "appId": "com.example.todoelectron",
+    "productName": "Todo Electron",
+    "files": [
+      "electron/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "extraMetadata": {
+      "main": "electron/main.js"
+    }
   },
   "dependencies": {
     "react": "19.1.0",
@@ -22,6 +51,10 @@
     "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3",
+    "concurrently": "^9",
+    "electron": "^31",
+    "electron-builder": "^25",
+    "wait-on": "^7"
   }
 }
