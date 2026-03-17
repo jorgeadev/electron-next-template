@@ -53,8 +53,8 @@
     "eslint-config-next": "15.5.0",
     "@eslint/eslintrc": "^3",
     "concurrently": "^9",
-    "electron": "^31",
-    "electron-builder": "^26",
+    "electron": "^35",
+    "electron-builder": "^25",
     "wait-on": "^7"
   }
 }
