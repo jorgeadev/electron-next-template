@@ -54,7 +54,7 @@
     "@eslint/eslintrc": "^3",
     "concurrently": "^9",
     "electron": "^35",
-    "electron-builder": "^25",
+    "electron-builder": "^26",
     "wait-on": "^7"
   }
 }
