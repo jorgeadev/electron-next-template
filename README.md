@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Electron + Next.js Template
+
+A minimal, production-ready desktop application template built with **Electron** and **Next.js** (App Router). The UI is written in React with TypeScript and styled using Tailwind CSS v4. The Next.js app is statically exported so it can be loaded directly by Electron in production — no server required.
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Desktop shell | [Electron](https://www.electronjs.org/) |
+| UI framework | [Next.js 16](https://nextjs.org/) (App Router, static export) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
+| Linting | [ESLint](https://eslint.org/) + [eslint-config-next](https://nextjs.org/docs/app/api-reference/config/eslint) |
+| Formatting | [Prettier](https://prettier.io/) + [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) |
+| Packaging | [electron-builder](https://www.electron.build/) |
+| Package manager | [pnpm](https://pnpm.io/) |
+
+## Project Structure
+
+```
+├── electron/
+│   ├── main.js        # Electron main process
+│   └── preload.js     # Context-isolated preload script
+├── src/
+│   └── app/           # Next.js App Router pages & layouts
+├── public/            # Static assets
+├── next.config.ts     # Next.js config (static export)
+├── package.json
+└── tsconfig.json
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) ≥ 18
+- [pnpm](https://pnpm.io/) (`npm install -g pnpm`)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Starts the Next.js dev server and launches Electron once the server is ready:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+```
 
-## Learn More
+The Next.js app is served at `http://localhost:3000` and Electron loads it automatically.
 
-To learn more about Next.js, take a look at the following resources:
+### Production Build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Builds the Next.js app as a static export, then packages the Electron app:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm build
+```
 
-## Deploy on Vercel
+### Distribution (Windows installer)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Creates a distributable Windows NSIS installer (`x64`):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm dist
+```
+
+The output is placed in the `dist/` directory.
+
+## Available Scripts
+
+| Script | Description |
+|---|---|
+| `pnpm dev` | Start Next.js dev server and Electron together |
+| `pnpm dev:next` | Start Next.js dev server only (Turbopack) |
+| `pnpm dev:electron` | Start Electron only |
+| `pnpm build` | Build Next.js static export + package Electron app |
+| `pnpm build:next` | Build Next.js static export only |
+| `pnpm build:electron` | Package Electron app only (no installer) |
+| `pnpm dist` | Build and create distributable Windows installer |
+| `pnpm lint` | Run ESLint |
+| `pnpm lint:fix` | Run ESLint and auto-fix issues |
+| `pnpm format` | Format all files with Prettier |
+| `pnpm format:check` | Check formatting without writing changes |
+
+## Architecture
+
+### Dev mode
+
+```
+pnpm dev
+ ├─ next dev --turbopack -p 3000   (Next.js dev server)
+ └─ wait-on localhost:3000 → electron .   (Electron loads http://localhost:3000)
+```
+
+### Production mode
+
+```
+pnpm build
+ ├─ next build --turbopack && next export  →  out/
+ └─ electron-builder  →  Electron loads out/index.html from disk
+```
+
+### Security
+
+The Electron main process is configured with a strict security model:
+
+- `contextIsolation: true` — renderer and preload run in separate contexts
+- `nodeIntegration: false` — Node.js APIs are not exposed to the renderer
+- `sandbox: true` — renderer process is OS-sandboxed
+- External links are opened in the system browser via `shell.openExternal`
+
+## Customization
+
+| What to change | Where |
+|---|---|
+| App UI | `src/app/` |
+| Electron window settings | `electron/main.js` |
+| Expose APIs to renderer | `electron/preload.js` (via `contextBridge`) |
+| Next.js config | `next.config.ts` |
+| App metadata / build targets | `package.json` → `"build"` section |
+| Code style | `.prettierrc`, `eslint.config.mjs` |
+
+## License
+
+This project is open source. See [LICENSE](LICENSE) for details (if present).
