@@ -1,8 +1,7 @@
 // Preload script (isolated world)
 // Exposes a minimal, safe API if needed in the future
-const { contextBridge } = require('electron');
+import { contextBridge } from "electron";
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  // Example: no-op placeholder to keep preload structure ready
+contextBridge.exposeInMainWorld("electronAPI", {
+	// Example: no-op placeholder to keep preload structure ready
 });
-
