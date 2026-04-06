@@ -64,5 +64,10 @@
 		"tailwindcss": "^4.2.2",
 		"typescript": "^5.9.3",
 		"wait-on": "^7.2.0"
+	},
+	"pnpm": {
+		"overrides": {
+			"undici-types": "6.24.1"
+		}
 	}
 }

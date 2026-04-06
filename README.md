@@ -4,16 +4,16 @@ A minimal, production-ready desktop application template built with **Electron**
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Desktop shell | [Electron](https://www.electronjs.org/) |
-| UI framework | [Next.js 16](https://nextjs.org/) (App Router, static export) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
-| Linting | [ESLint](https://eslint.org/) + [eslint-config-next](https://nextjs.org/docs/app/api-reference/config/eslint) |
-| Formatting | [Prettier](https://prettier.io/) + [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) |
-| Packaging | [electron-builder](https://www.electron.build/) |
-| Package manager | [pnpm](https://pnpm.io/) |
+| Layer           | Technology                                                                                                                    |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Desktop shell   | [Electron](https://www.electronjs.org/)                                                                                       |
+| UI framework    | [Next.js 16](https://nextjs.org/) (App Router, static export)                                                                 |
+| Language        | [TypeScript](https://www.typescriptlang.org/)                                                                                 |
+| Styling         | [Tailwind CSS v4](https://tailwindcss.com/)                                                                                   |
+| Linting         | [ESLint](https://eslint.org/) + [eslint-config-next](https://nextjs.org/docs/app/api-reference/config/eslint)                 |
+| Formatting      | [Prettier](https://prettier.io/) + [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) |
+| Packaging       | [electron-builder](https://www.electron.build/)                                                                               |
+| Package manager | [pnpm](https://pnpm.io/)                                                                                                      |
 
 ## Project Structure
 
@@ -72,19 +72,19 @@ The output is placed in the `dist/` directory.
 
 ## Available Scripts
 
-| Script | Description |
-|---|---|
-| `pnpm dev` | Start Next.js dev server and Electron together |
-| `pnpm dev:next` | Start Next.js dev server only (Turbopack) |
-| `pnpm dev:electron` | Start Electron only |
-| `pnpm build` | Build Next.js static export + package Electron app |
-| `pnpm build:next` | Build Next.js static export only |
-| `pnpm build:electron` | Package Electron app only (no installer) |
-| `pnpm dist` | Build and create distributable Windows installer |
-| `pnpm lint` | Run ESLint |
-| `pnpm lint:fix` | Run ESLint and auto-fix issues |
-| `pnpm format` | Format all files with Prettier |
-| `pnpm format:check` | Check formatting without writing changes |
+| Script                | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `pnpm dev`            | Start Next.js dev server and Electron together     |
+| `pnpm dev:next`       | Start Next.js dev server only (Turbopack)          |
+| `pnpm dev:electron`   | Start Electron only                                |
+| `pnpm build`          | Build Next.js static export + package Electron app |
+| `pnpm build:next`     | Build Next.js static export only                   |
+| `pnpm build:electron` | Package Electron app only (no installer)           |
+| `pnpm dist`           | Build and create distributable Windows installer   |
+| `pnpm lint`           | Run ESLint                                         |
+| `pnpm lint:fix`       | Run ESLint and auto-fix issues                     |
+| `pnpm format`         | Format all files with Prettier                     |
+| `pnpm format:check`   | Check formatting without writing changes           |
 
 ## Architecture
 
@@ -115,14 +115,14 @@ The Electron main process is configured with a strict security model:
 
 ## Customization
 
-| What to change | Where |
-|---|---|
-| App UI | `src/app/` |
-| Electron window settings | `electron/main.js` |
-| Expose APIs to renderer | `electron/preload.js` (via `contextBridge`) |
-| Next.js config | `next.config.ts` |
-| App metadata / build targets | `package.json` → `"build"` section |
-| Code style | `.prettierrc`, `eslint.config.mjs` |
+| What to change               | Where                                       |
+| ---------------------------- | ------------------------------------------- |
+| App UI                       | `src/app/`                                  |
+| Electron window settings     | `electron/main.js`                          |
+| Expose APIs to renderer      | `electron/preload.js` (via `contextBridge`) |
+| Next.js config               | `next.config.ts`                            |
+| App metadata / build targets | `package.json` → `"build"` section          |
+| Code style                   | `.prettierrc`, `eslint.config.mjs`          |
 
 ## License
 
