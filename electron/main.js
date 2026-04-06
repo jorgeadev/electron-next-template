@@ -3,8 +3,10 @@
 // - In prod, it loads the statically exported Next.js build from ./out
 
 import { app, BrowserWindow, shell } from "electron";
-import { join } from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDev = !app.isPackaged;
 
 /** @type {BrowserWindow | null} */

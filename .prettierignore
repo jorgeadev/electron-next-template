@@ -7,3 +7,6 @@ coverage
 *.min.css
 .env*
 pnpm-lock.yaml
+# Prettier has no JSX curly spacing option — ESLint handles formatting for these
+*.tsx
+*.jsx

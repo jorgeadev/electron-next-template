@@ -7,21 +7,19 @@ type Todo = { id: string; text: string; done: boolean };
 const STORAGE_KEY = "todos";
 
 export default function Home() {
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const [todos, setTodos] = useState<Todo[]>(() => {
+		try {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			return raw ? (JSON.parse(raw) as Todo[]) : [];
+		} catch {
+			return [];
+		}
+	});
 	const [text, setText] = useState("");
 	const remaining = useMemo(
 		() => todos.filter((t) => !t.done).length,
 		[todos],
 	);
-
-	useEffect(() => {
-		try {
-			const raw = localStorage.getItem(STORAGE_KEY);
-			if (raw) {
-				setTodos(JSON.parse(raw));
-			}
-		} catch {}
-	}, []);
 
 	useEffect(() => {
 		try {
@@ -67,25 +65,25 @@ export default function Home() {
 				<h1 className="mb-4 text-3xl font-bold">Todo</h1>
 				<div className="mb-4 flex gap-2">
 					<input
-						value={text}
-						onChange={(e) => setText(e.target.value)}
-						onKeyDown={onKeyDown}
+						value={ text }
+						onChange={ (e) => setText(e.target.value) }
+						onKeyDown={ onKeyDown }
 						placeholder="Add a task..."
 						className="flex-1 rounded border border-gray-300 bg-white/80 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black/20"
 					/>
 					<button
-						onClick={addTodo}
+						onClick={ addTodo }
 						className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
-						disabled={!text.trim()}
+						disabled={ !text.trim() }
 					>
 						Add
 					</button>
 				</div>
 
 				<div className="mb-2 flex items-center justify-between text-sm opacity-80">
-					<span>{remaining} remaining</span>
+					<span>{ remaining } remaining</span>
 					<button
-						onClick={clearCompleted}
+						onClick={ clearCompleted }
 						className="hover:underline"
 					>
 						Clear completed
@@ -93,30 +91,30 @@ export default function Home() {
 				</div>
 
 				<ul className="space-y-2">
-					{todos.map((t) => (
+					{ todos.map((t) => (
 						<li
-							key={t.id}
+							key={ t.id }
 							className="flex items-center gap-3 rounded border border-gray-200 p-2 dark:border-white/15"
 						>
 							<input
 								type="checkbox"
-								checked={t.done}
-								onChange={() => toggle(t.id)}
+								checked={ t.done }
+								onChange={ () => toggle(t.id) }
 								className="size-4"
 							/>
 							<span
-								className={`flex-1 ${t.done ? "line-through opacity-60" : ""}`}
+								className={ `flex-1 ${t.done ? "line-through opacity-60" : ""}` }
 							>
-								{t.text}
+								{ t.text }
 							</span>
 							<button
-								onClick={() => remove(t.id)}
+								onClick={ () => remove(t.id) }
 								className="text-red-600 hover:underline"
 							>
 								Delete
 							</button>
 						</li>
-					))}
+					)) }
 				</ul>
 			</div>
 		</div>
