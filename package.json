@@ -8,7 +8,7 @@
 		"dev:next": "next dev --turbopack -p 3000",
 		"dev:electron": "electron .",
 		"dev": "concurrently -n next,electron -c green,blue \"npm:dev:next\" \"wait-on http-get://localhost:3000 && electron .\"",
-		"build:next": "next build --turbopack && next export",
+		"build:next": "next build --turbopack",
 		"build:electron": "electron-builder --win --dir",
 		"build": "npm run build:next && npm run build:electron",
 		"dist": "electron-builder --win --x64",
