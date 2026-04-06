@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"main": "electron/main.js",
+	"type": "module",
 	"scripts": {
 		"dev:next": "next dev --turbopack -p 3000",
 		"dev:electron": "electron .",
