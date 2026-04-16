@@ -68,7 +68,11 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"undici-types": "6.24.1"
+			"undici-types": "6.24.1",
+			"axios": "1.8.2",
+			"tar": "7.4.3",
+			"follow-redirects": "1.15.6",
+			"@tootallnate/once": "3.0.1"
 		}
 	}
 }
