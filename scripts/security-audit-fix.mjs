@@ -26,7 +26,7 @@ const execOptions = { stdio: 'inherit', cwd: path.resolve(__dirname, '..') };
 
 try {
 	console.log('📦 Running a fresh pnpm install to resolve naturally...');
-	execSync('pnpm install --config.trust-policies=false', execOptions);
+	execSync('pnpm install --no-frozen-lockfile --config.trust-policies=false', execOptions);
 
 	console.log('🛡️ Running pnpm audit...');
 	// This will throw if vulnerabilities are found
@@ -43,7 +43,7 @@ try {
 		}
 
 		console.log('📦 Re-running pnpm install to lock in the patched overrides...');
-		execSync('pnpm install --config.trust-policies=false', execOptions);
+		execSync('pnpm install --no-frozen-lockfile --config.trust-policies=false', execOptions);
 		
 		console.log('🔄 Syncing pnpm overrides to NPM overrides natively...');
 		const updatedPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
