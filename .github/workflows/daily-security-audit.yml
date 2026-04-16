@@ -1,0 +1,44 @@
+name: Daily Security Update
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # Runs daily at 03:00 UTC
+  workflow_dispatch: # Allow running manually
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+          
+      - name: Run Auto Security Fix Script
+        run: node scripts/security-audit-fix.mjs
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          title: "🔐 chore(security): Auto-update dependencies to fix vulnerabilities"
+          commit-message: "chore: auto-update dependency overrides for security patches"
+          body: |
+            This PR automatically updates `package.json` overrides to resolve newly reported vulnerabilities and removes old overrides that are no longer needed.
+            
+            It uses `pnpm audit --fix`. Since this queries the same advisory database as Dependabot, merging this PR will allow Dependabot to auto-detect the secure lock file and **close the corresponding open alerts automatically**.
+          branch: chore/auto-security-updates
+          delete-branch: true
