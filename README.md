@@ -41,6 +41,7 @@ We merge the power of **Electron** for native OS capabilities with the developer
 ### Prerequisites
 
 Ensure you have the following installed on your machine:
+
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [pnpm](https://pnpm.io/) (v10+ recommended)
 
@@ -67,6 +68,7 @@ Spin up both the Next.js dev server and the Electron shell simultaneously:
 ```bash
 pnpm dev
 ```
+
 > **Note:** The UI operates on `http://localhost:3000` while Electron waits for the port to open before securely attaching.
 
 ### Building for Production
@@ -85,7 +87,7 @@ Create a highly optimized, distributable Windows NSIS installer (`.exe` x64) out
 pnpm dist
 ```
 
-*The resulting bundled artifacts will be placed automatically generated inside the `dist/` directory.*
+_The resulting bundled artifacts will be placed automatically generated inside the `dist/` directory._
 
 ---
 
@@ -112,7 +114,7 @@ pnpm dist
 <details>
 <summary><b>⚙️ View Available Scripts</b></summary>
 
-Use these helper scripts to navigate development efficiently. 
+Use these helper scripts to navigate development efficiently.
 
 | Command               | Action                                             |
 | --------------------- | -------------------------------------------------- |
@@ -142,7 +144,7 @@ The Electron `main.js` process is natively configured out-of-the-box using the s
 
 ---
 
-## 🎨 API & Customization 
+## 🎨 API & Customization
 
 Adapting the template for your specific project is painless. Refer to the matrix below:
 
