@@ -16,7 +16,8 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",
-		"format:check": "prettier --check ."
+		"format:check": "prettier --check .",
+		"precommit": "pnpm run format && pnpm run lint:fix"
 	},
 	"build": {
 		"appId": "com.example.todoelectron",

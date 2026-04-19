@@ -36,14 +36,10 @@ const eslintConfig = [
 			// Disabled indent rule due to known bugs in ESLint 9.x causing stack overflow
 			// Consider using Prettier or @stylistic/eslint-plugin instead
 			indent: "off",
-			"linebreak-style": ["error", "unix"],
 			quotes: ["error", "double", { avoidEscape: false }],
 			curly: ["error", "all"],
 			"object-curly-spacing": ["error", "always"],
-			"react/jsx-curly-spacing": [
-				"error",
-				{ when: "always", children: true },
-			],
+			"react/jsx-curly-spacing": ["error", { when: "always", children: true }],
 		},
 	},
 ];

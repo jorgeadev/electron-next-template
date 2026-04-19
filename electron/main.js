@@ -29,6 +29,7 @@ function createWindow() {
 
 	if (isDev) {
 		mainWindow.loadURL("http://localhost:3000");
+		mainWindow.webContents.openDevTools();
 	} else {
 		const indexPath = join(__dirname, "..", "out", "index.html");
 		mainWindow.loadFile(indexPath);

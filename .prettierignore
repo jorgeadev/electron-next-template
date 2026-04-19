@@ -1,12 +1,22 @@
-.next
+# Dependencies
 node_modules
-out
+
+# Build outputs
+dist
 build
-coverage
+
+# Generated files
 *.min.js
 *.min.css
+
+# Environment
 .env*
+
+# Lock files
 pnpm-lock.yaml
-# Prettier has no JSX curly spacing option — ESLint handles formatting for these
-*.tsx
-*.jsx
+yarn.lock
+package-lock.json
+
+# Jetbrains
+.idea
+.vscode
