@@ -14,13 +14,15 @@ overrides:
   tar@<=7.5.10: '>=7.5.11'
   tar@<=7.5.3: '>=7.5.4'
   postcss@<8.5.10: '>=8.5.10'
+  next@>=16.0.0 <16.2.5: '>=16.2.5'
+  next@>=16.0.0 <16.2.6: '>=16.2.6'
 
 importers:
 
   .:
     dependencies:
       next:
-        specifier: 16.2.6
+        specifier: '>=16.2.6'
         version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: 19.2.4
