@@ -1,0 +1,4 @@
+allowBuilds:
+  electron: true
+  sharp: true
+  unrs-resolver: true
