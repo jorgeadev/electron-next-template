@@ -14,10 +14,7 @@ overrides:
   tar@<=7.5.3: '>=7.5.4'
   postcss@<8.5.10: '>=8.5.10'
   shell-quote@>=1.1.0 <=1.8.3: '>=1.8.4'
-  form-data@>=4.0.0 <4.0.6: '>=4.0.6'
   tar@<=7.5.15: '>=7.5.16'
-  js-yaml@<=4.1.1: '>=4.2.0'
-  '@babel/core@<=7.29.0': '>=7.29.6'
 
 importers:
 
@@ -123,7 +120,7 @@ packages:
     resolution: {integrity: sha512-UPUVSyXbOh627KiCIGQSgwWzGeBKLkaJ9PJEdrngIwMSzxLR4jS4+f1f1jb7VzBbg8nFLaYotvVPFCTqdrmTAg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
-      '@babel/core': '>=7.29.6'
+      '@babel/core': ^7.0.0
 
   '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
