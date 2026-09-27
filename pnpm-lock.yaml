@@ -745,8 +745,8 @@ packages:
   '@types/node@20.19.39':
     resolution: {integrity: sha512-orrrD74MBUyK8jOAD/r0+lfa1I2MO6I+vAkmAWzMYbCcgrN4lCrmK52gRFQq/JRxfYPfonkr4b0jcY7Olqdqbw==}
 
-  '@types/node@24.13.6':
-    resolution: {integrity: sha512-SGrw/h3KPFshy3OE6ZL53LMBG5vGQQ8/gIpiqz/kRZhPJ7HgwCEs8LBuNtWLa8dvGZVpSF7+Bf+c11HUrCb/yg==}
+  '@types/node@24.19.0':
+    resolution: {integrity: sha512-zY+5tKxXdhGh1PYI0ac+7juvEu4OI6vWtVVoj5i2m42jxAY1U+zHGt6QCyOFwykdP62sM3MJ9stoYYUw5aCWew==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -2911,12 +2911,12 @@ packages:
   undici-types@6.24.1:
     resolution: {integrity: sha512-JT8B3M7LYQCRZVfB1OZZIqzi1OMeDHcTpRJpHPNvHFmye4wT03uBM8vw73NqXKfihrpGzSsWlBfUcOglX3oBeA==}
 
-  undici@6.28.1:
-    resolution: {integrity: sha512-zWpdTVD54H48CIybL0rWQ3ukpb9d23wM7eH5RtfdmeP70cWHNjtfo7P4vZX+5CoDcO53J4Pu5uXp7lNfjc6DRA==}
+  undici@6.29.0:
+    resolution: {integrity: sha512-R+RODBqp6i2pPflGdq+xIOUkl+RNfGgHwoinecKu/JCuf2uO06cOKoDbI2P7Dn6KcswdKwrczbU6IYJ6K8X+wg==}
     engines: {node: '>=18.17'}
 
-  undici@7.29.1:
-    resolution: {integrity: sha512-RYONW2MeafgYlkVOKYKkA/Ag7BmXqgIWCa8t1m0JcxrQg9pI9lEqRhAOruOBCbAohOa/gkCF+iPi9hrgvTzu6Q==}
+  undici@7.30.0:
+    resolution: {integrity: sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==}
     engines: {node: '>=20.18.1'}
 
   universalify@0.1.2:
@@ -3197,7 +3197,7 @@ snapshots:
       semver: 7.8.5
       sumchecker: 3.0.1
     optionalDependencies:
-      undici: 7.29.1
+      undici: 7.30.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3685,7 +3685,7 @@ snapshots:
     dependencies:
       undici-types: 6.24.1
 
-  '@types/node@24.13.6':
+  '@types/node@24.19.0':
     dependencies:
       undici-types: 6.24.1
 
@@ -4444,7 +4444,7 @@ snapshots:
     dependencies:
       '@electron-internal/extract-zip': 1.0.5
       '@electron/get': 5.1.0
-      '@types/node': 24.13.6
+      '@types/node': 24.19.0
     transitivePeerDependencies:
       - supports-color
 
@@ -5503,7 +5503,7 @@ snapshots:
       semver: 7.8.5
       tar: 7.5.22
       tinyglobby: 0.2.15
-      undici: 6.28.1
+      undici: 6.29.0
       which: 6.0.1
 
   node-int64@0.4.0: {}
@@ -6174,9 +6174,9 @@ snapshots:
 
   undici-types@6.24.1: {}
 
-  undici@6.28.1: {}
+  undici@6.29.0: {}
 
-  undici@7.29.1:
+  undici@7.30.0:
     optional: true
 
   universalify@0.1.2: {}
