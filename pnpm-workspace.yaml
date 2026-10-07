@@ -1,4 +1,14 @@
+engineStrict: true
+savePrefix: "="
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 525600
+overrides:
+    undici-types: 7.24.6
+    yauzl: ^3.3.1
 allowBuilds:
-  electron: true
-  sharp: true
-  unrs-resolver: true
+    electron: true
+    electron-winstaller: false
+    sharp: true
+    unrs-resolver: true

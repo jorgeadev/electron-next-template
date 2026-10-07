@@ -7,24 +7,18 @@ const eslintConfig = [
 	...nextTypescript,
 	prettier,
 	{
-		ignores: [
-			// Default ignores of eslint-config-next:
-			".next/**",
-			"out/**",
-			"build/**",
-			"next-env.d.ts",
-			"node_modules/",
-		],
+		ignores: [".next/**", "out/**", "build/**", "dist/**", "node_modules/**", "next-env.d.ts"],
+	},
+	{
+		files: ["**/*.cjs"],
+		rules: {
+			"@typescript-eslint/no-require-imports": "off",
+		},
 	},
 	{
 		files: ["**/*.{js,jsx,ts,tsx}"],
-		languageOptions: {
-			ecmaVersion: 2020,
-		},
 		rules: {
-			"react-hooks/rules-of-hooks": "error",
-			"react-hooks/exhaustive-deps": "warn",
-			"no-unused-vars": [
+			"@typescript-eslint/no-unused-vars": [
 				"error",
 				{
 					varsIgnorePattern: "^_",
@@ -32,14 +26,6 @@ const eslintConfig = [
 					caughtErrorsIgnorePattern: "^_",
 				},
 			],
-			semi: ["error", "always"],
-			// Disabled indent rule due to known bugs in ESLint 9.x causing stack overflow
-			// Consider using Prettier or @stylistic/eslint-plugin instead
-			indent: "off",
-			quotes: ["error", "double", { avoidEscape: false }],
-			curly: ["error", "all"],
-			"object-curly-spacing": ["error", "always"],
-			"react/jsx-curly-spacing": ["error", { when: "always", children: true }],
 		},
 	},
 ];

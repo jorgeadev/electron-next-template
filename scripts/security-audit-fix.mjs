@@ -1,32 +1,35 @@
-import fs from "fs";
-import { execSync } from "child_process";
-import { fileURLToPath } from "url";
-import path from "path";
+import { execSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse, stringify } from "yaml";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const packageJsonPath = path.resolve(__dirname, "../package.json");
-
-console.log("🔄 Reading package.json...");
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const workspacePath = path.resolve(__dirname, "../pnpm-workspace.yaml");
+const execOptions = { stdio: "inherit", cwd: path.resolve(__dirname, "..") };
 
 // Permanent overrides that are NOT from security fixes
 const permanentOverrides = {
-	"undici-types": "6.24.1",
+	"undici-types": "7.24.6",
+	// yauzl >= 3.3.1 fixes a silent extraction hang on Node >= 24.16 / >= 26.1
+	// used by electron's install script (extract-zip -> yauzl)
+	yauzl: "^3.3.1",
 };
 
-console.log("🧹 Cleaning previous security overrides...");
-packageJson.pnpm = packageJson.pnpm || {};
-packageJson.pnpm.overrides = { ...permanentOverrides };
-packageJson.overrides = { ...permanentOverrides };
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
+console.log("🔄 Reading pnpm-workspace.yaml...");
+const workspace = parse(fs.readFileSync(workspacePath, "utf8")) ?? {};
 
-// Options for execSync
-const execOptions = { stdio: "inherit", cwd: path.resolve(__dirname, "..") };
+console.log("🧹 Cleaning previous security overrides...");
+workspace.overrides = { ...permanentOverrides };
+fs.writeFileSync(workspacePath, stringify(workspace));
+
+const runPnpmInstall = () => {
+	execSync("pnpm install --no-frozen-lockfile --config.trust-policy=none", execOptions);
+};
 
 try {
 	console.log("📦 Running a fresh pnpm install to resolve naturally...");
-	execSync("pnpm install --no-frozen-lockfile --config.trust-policy=none", execOptions);
+	runPnpmInstall();
 
 	console.log("🛡️ Running pnpm audit...");
 	// This will throw if vulnerabilities are found
@@ -43,16 +46,7 @@ try {
 		}
 
 		console.log("📦 Re-running pnpm install to lock in the patched overrides...");
-		execSync("pnpm install --no-frozen-lockfile --config.trust-policy=none", execOptions);
-
-		console.log("🔄 Syncing pnpm overrides to NPM overrides natively...");
-		const updatedPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-		if (updatedPackageJson.pnpm && updatedPackageJson.pnpm.overrides) {
-			updatedPackageJson.overrides = {
-				...updatedPackageJson.pnpm.overrides,
-			};
-			fs.writeFileSync(packageJsonPath, JSON.stringify(updatedPackageJson, null, "\t") + "\n");
-		}
+		runPnpmInstall();
 
 		console.log("✅ Security patches applied successfully where possible.");
 	} else {
