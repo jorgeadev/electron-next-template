@@ -1,8 +1,8 @@
-name: Daily Security Update
+name: Weekly Security Update
 
 on:
     schedule:
-        - cron: "0 3 * * *" # Runs daily at 03:00 UTC
+        - cron: "0 3 * * 1" # Runs every Monday at 03:00 UTC
     workflow_dispatch: # Allow running manually
 
 permissions:
@@ -16,18 +16,20 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: "24"
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v3
-              with:
-                  version: 10
+                  cache: pnpm
 
             - name: Run Auto Security Fix Script
               run: node scripts/security-audit-fix.mjs
+
+            - name: Format changed files
+              run: pnpm format
 
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v6
@@ -37,8 +39,8 @@ jobs:
                   title: "🔐 chore(security): Auto-update dependencies to fix vulnerabilities"
                   commit-message: "chore: auto-update dependency overrides for security patches"
                   body: |
-                      This PR automatically updates `package.json` overrides to resolve newly reported vulnerabilities and removes old overrides that are no longer needed.
+                      This PR automatically updates the `overrides` in `pnpm-workspace.yaml` to resolve newly reported vulnerabilities and removes old overrides that are no longer needed.
 
-                      It uses `pnpm audit --fix`. Since this queries the same advisory database as Dependabot, merging this PR will allow Dependabot to auto-detect the secure lock file and **close the corresponding open alerts automatically**.
+                      It runs the audit workflow against the same advisory database as Dependabot. Merging this PR allows Dependabot to auto-detect the secure lock file and **close the corresponding open alerts automatically**.
                   branch: chore/auto-security-updates
                   delete-branch: true

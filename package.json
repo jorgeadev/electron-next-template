@@ -1,35 +1,47 @@
 {
 	"name": "todo-electron",
+	"productName": "Todo Electron",
 	"version": "0.1.0",
 	"private": true,
+	"description": "Production-ready Electron + Next.js desktop application template",
+	"author": "jorgeadev",
+	"license": "MIT",
 	"main": "electron/main.js",
 	"type": "module",
+	"packageManager": "pnpm@12.9.1",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=12"
+	},
 	"scripts": {
+		"dev": "concurrently -k -n next,electron -c green,blue \"npm:dev:next\" \"wait-on http-get://localhost:3000 && electron .\"",
 		"dev:next": "next dev --turbopack -p 3000",
 		"dev:electron": "electron .",
-		"dev": "concurrently -n next,electron -c green,blue \"npm:dev:next\" \"wait-on http-get://localhost:3000 && electron .\"",
+		"build": "pnpm run build:next && pnpm run build:electron",
 		"build:next": "next build --turbopack",
-		"build:electron": "electron-builder --win --dir",
-		"build": "npm run build:next && npm run build:electron",
-		"dist": "electron-builder --win --x64",
-		"start": "next start",
+		"build:electron": "electron-builder --dir",
+		"dist": "electron-builder",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
+		"typecheck": "tsc --noEmit",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"precommit": "pnpm run format && pnpm run lint:fix"
+		"precommit": "pnpm run format && pnpm run lint:fix && pnpm run typecheck"
 	},
 	"build": {
 		"appId": "com.example.todoelectron",
 		"productName": "Todo Electron",
+		"asar": true,
 		"files": [
 			"electron/**/*",
 			"out/**/*",
 			"package.json"
 		],
 		"directories": {
-			"buildResources": "build"
+			"buildResources": "build",
+			"output": "dist"
 		},
+		"artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
 		"win": {
 			"target": [
 				{
@@ -40,69 +52,45 @@
 				}
 			]
 		},
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true
+		},
+		"mac": {
+			"target": [
+				"dmg"
+			],
+			"category": "public.app-category.productivity"
+		},
+		"linux": {
+			"target": [
+				"AppImage"
+			],
+			"category": "Utility"
+		},
 		"extraMetadata": {
 			"main": "electron/main.js"
 		}
 	},
-	"dependencies": {
-		"next": "16.3.6",
-		"react": "19.2.4",
-		"react-dom": "19.2.4"
-	},
 	"devDependencies": {
-		"@eslint/eslintrc": "3.3.5",
-		"@tailwindcss/postcss": "4.2.2",
-		"@types/node": "20.19.39",
-		"@types/react": "19.2.14",
-		"@types/react-dom": "19.2.3",
-		"concurrently": "9.2.1",
-		"electron": "41.10.6",
-		"electron-builder": "25.1.8",
-		"eslint": "9.39.4",
-		"eslint-config-next": "16.2.2",
+		"@tailwindcss/postcss": "4.3.3",
+		"@types/node": "24.19.1",
+		"@types/react": "19.3.0",
+		"@types/react-dom": "19.3.0",
+		"concurrently": "10.0.5",
+		"electron": "44.5.1",
+		"electron-builder": "26.15.3",
+		"eslint": "9.39.5",
+		"eslint-config-next": "16.3.8",
 		"eslint-config-prettier": "10.1.8",
-		"prettier": "3.8.1",
-		"prettier-plugin-tailwindcss": "0.7.2",
-		"tailwindcss": "^4.2.2",
-		"typescript": "^5.9.3",
-		"wait-on": "^7.2.0"
-	},
-	"overrides": {
-		"undici-types": "6.24.1",
-		"tar@<7.5.7": ">=7.5.7",
-		"tar@<=7.5.2": ">=7.5.3",
-		"tar@<7.5.8": ">=7.5.8",
-		"tar@<=7.5.9": ">=7.5.10",
-		"tar@<=7.5.10": ">=7.5.11",
-		"tar@<=7.5.3": ">=7.5.4",
-		"shell-quote@>=1.1.0 <=1.8.3": ">=1.8.4",
-		"tar@<=7.5.15": ">=7.5.16",
-		"tar@<=7.5.17": ">=7.5.18",
-		"tar@<=7.5.18": ">=7.5.19",
-		"tar@<=7.5.16": ">=7.5.17",
-		"shell-quote@<=1.8.4": ">=1.9.0",
-		"builder-util-runtime@<9.7.0": ">=9.7.0",
-		"app-builder-lib@<26.15.0": ">=26.15.0",
-		"tar@<=7.5.20": ">=7.5.21"
-	},
-	"pnpm": {
-		"overrides": {
-			"undici-types": "6.24.1",
-			"tar@<7.5.7": ">=7.5.7",
-			"tar@<=7.5.2": ">=7.5.3",
-			"tar@<7.5.8": ">=7.5.8",
-			"tar@<=7.5.9": ">=7.5.10",
-			"tar@<=7.5.10": ">=7.5.11",
-			"tar@<=7.5.3": ">=7.5.4",
-			"shell-quote@>=1.1.0 <=1.8.3": ">=1.8.4",
-			"tar@<=7.5.15": ">=7.5.16",
-			"tar@<=7.5.17": ">=7.5.18",
-			"tar@<=7.5.18": ">=7.5.19",
-			"tar@<=7.5.16": ">=7.5.17",
-			"shell-quote@<=1.8.4": ">=1.9.0",
-			"builder-util-runtime@<9.7.0": ">=9.7.0",
-			"app-builder-lib@<26.15.0": ">=26.15.0",
-			"tar@<=7.5.20": ">=7.5.21"
-		}
+		"next": "16.3.8",
+		"prettier": "3.9.9",
+		"prettier-plugin-tailwindcss": "0.8.1",
+		"react": "19.3.0",
+		"react-dom": "19.3.0",
+		"tailwindcss": "4.3.3",
+		"typescript": "6.0.3",
+		"wait-on": "9.5.1",
+		"yaml": "2.9.1"
 	}
 }
