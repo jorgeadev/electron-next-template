@@ -78,7 +78,7 @@
 		"@types/react": "19.3.0",
 		"@types/react-dom": "19.3.0",
 		"concurrently": "10.0.5",
-		"electron": "44.5.1",
+		"electron": "44.9.1",
 		"electron-builder": "26.15.3",
 		"eslint": "9.39.5",
 		"eslint-config-next": "16.3.8",
